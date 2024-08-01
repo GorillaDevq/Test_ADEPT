@@ -1,0 +1,14 @@
+.Button {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        opacity: 0.7;
+        fill-opacity: 0.7;
+        stroke-opacity: 0.7;
+    }
+}
+
+.clear {
+    @include button-reset;
+}

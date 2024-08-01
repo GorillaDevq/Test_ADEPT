@@ -5,8 +5,8 @@ import React, {
 import cls from './Input.module.scss';
 
 export enum InputTheme {
-    BORDER_BOTTOM = 'borderBottom',
-    CLEAR = 'clear'
+    CLEAR = 'clear',
+    BORDER_BOTTOM = 'input_borderBottom',
 }
 
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>
@@ -49,7 +49,7 @@ export const Input = (props: InputProps) => {
     return (
         <input
             type={type}
-            className={classNames(cls.Input)}
+            className={classNames(cls.input, mods, [cls[theme]])}
             value={value}
             onChange={onHandlerChange}
             ref={inputElement}

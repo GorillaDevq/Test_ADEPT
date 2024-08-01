@@ -1,4 +1,4 @@
-.Input {
+.input {
     @include input-reset;
 
     &:focus {
@@ -6,6 +6,6 @@
     }
 }
 
-.clear {
-
+.input_borderBottom{
+    border-bottom: 2px solid grey;
 }
