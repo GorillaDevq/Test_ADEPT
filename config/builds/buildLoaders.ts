@@ -22,10 +22,18 @@ export default function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRu
                             ? '[path][name]__[local]--[hash:base64:5]'
                             : '[hash:base64:8]',
                     },
-
                 },
             },
             'sass-loader',
+            {
+                loader: 'sass-resources-loader',
+                options: {
+                    resources: [
+                        'src/app/styles/variables/global.scss',
+                        'src/app/styles/variables/mixins.scss',
+                    ]
+                },
+            }
         ],
     };
 
@@ -35,13 +43,6 @@ export default function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRu
         use: ['@svgr/webpack'],
     };
 
-    const fileLoader = {
-        test: /\.(png|jpe?g|gif|ttf|woff|woff2)$/i,
-        loader: 'file-loader',
-        options: {
-            outputPath: 'assets',
-        },
-    };
 
     const babelLoader = {
         test: /\.(js|jsx|ts|tsx)$/,
@@ -56,7 +57,6 @@ export default function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRu
     };
 
     return [
-        fileLoader,
         svgLoader,
         babelLoader,
         typeScriptLoader,

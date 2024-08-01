@@ -2,20 +2,16 @@
 @import "./variables/global";
 
 .app {
-    background: var(--bg-color);
     min-height: 100vh;
 }
 
-.content-page {
-    display: flex;
+.wrapper {
+    font-family: "Times New Roman", Arial, sans-serif;
 }
 
-.page-wrapper {
-    padding: 20px 20px 20px 45px;
-    height: calc(100vh - var(--navbar-height));
-    overflow-y: auto;
-    width: 100%;
-    flex-shrink: 100;
+.content-page {
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 .content-page {

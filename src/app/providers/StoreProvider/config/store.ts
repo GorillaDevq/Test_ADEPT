@@ -3,7 +3,6 @@ import { StateSchema } from './StateSchema';
 
 export function createReduxStore() {
     const rootReducers: ReducersMapObject<StateSchema> = {
-
     };
 
     return configureStore<StateSchema>({

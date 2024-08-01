@@ -1,0 +1,11 @@
+.Input {
+    @include input-reset;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.clear {
+
+}
