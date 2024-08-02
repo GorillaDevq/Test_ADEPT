@@ -1,6 +1,7 @@
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
-import React, {
-    InputHTMLAttributes, useEffect, useRef,
+import {
+    ChangeEvent,
+    InputHTMLAttributes,
 } from 'react';
 import cls from './Input.module.scss';
 
@@ -10,7 +11,7 @@ export enum InputTheme {
     BORDER = 'input_border'
 }
 
-type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>
+type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' >
 
 interface InputProps extends HTMLInputProps {
     className?: string;
@@ -29,10 +30,7 @@ export const Input = (props: InputProps) => {
         ...otherProps
     } = props;
 
-    const inputElement = useRef<HTMLInputElement>(null);
-
-
-    const onHandlerChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const onHandlerChange = (evt: ChangeEvent<HTMLInputElement>) => {
         onChange?.(evt.target.value);
     };
 
@@ -46,7 +44,6 @@ export const Input = (props: InputProps) => {
             className={classNames(cls.input, mods, [cls[theme]])}
             value={value}
             onChange={onHandlerChange}
-            ref={inputElement}
             {...otherProps}
         />
     );

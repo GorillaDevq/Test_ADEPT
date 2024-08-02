@@ -1,6 +1,10 @@
 .company {
     height: 40px;
 
+    &_active {
+        background: $active-color;
+    }
+
     &__input {
 
     }
