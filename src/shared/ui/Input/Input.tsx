@@ -7,6 +7,7 @@ import cls from './Input.module.scss';
 export enum InputTheme {
     CLEAR = 'clear',
     BORDER_BOTTOM = 'input_borderBottom',
+    BORDER = 'input_border'
 }
 
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>
@@ -16,7 +17,6 @@ interface InputProps extends HTMLInputProps {
     theme?: InputTheme;
     value?: string | number;
     onChange?: (value: string) => void;
-    autoFocus?: boolean;
 }
 
 export const Input = (props: InputProps) => {
@@ -26,17 +26,11 @@ export const Input = (props: InputProps) => {
         value,
         type = 'text',
         onChange,
-        autoFocus,
         ...otherProps
     } = props;
 
     const inputElement = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        if (autoFocus) {
-            inputElement.current?.focus();
-        }
-    }, [autoFocus]);
 
     const onHandlerChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         onChange?.(evt.target.value);

@@ -4,8 +4,13 @@
     &:focus {
         outline: none;
     }
-}
 
-.input_borderBottom{
-    border-bottom: 2px solid grey;
+    &_border {
+        border: 1px solid black;
+    }
+
+    &_borderBottom{
+        border-bottom: 1px solid black;
+    }
+
 }

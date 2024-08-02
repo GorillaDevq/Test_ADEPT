@@ -1,14 +1,31 @@
-.Button {
+.button {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 
-    &:hover {
-        opacity: 0.7;
-        fill-opacity: 0.7;
-        stroke-opacity: 0.7;
-    }
-}
+    &__outline {
+        padding: 10px 15px;
+        border: 1px solid $primary-color;
+        color: $primary-color;
+        background: none;
 
-.clear {
-    @include button-reset;
+        &:hover {
+            color: white;
+            background: $primary-color;
+        }
+
+        &_red {
+            border: 1px solid $secondary-color;
+            color: $secondary-color;
+            background: none;
+
+            &:hover {
+                color: white;
+                background: $secondary-color;
+            }
+        }
+    }
+
+    &__clear {
+        @include button-reset;
+    }
 }
