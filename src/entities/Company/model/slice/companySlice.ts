@@ -19,7 +19,7 @@ const companySlice = createSlice({
         },
         toggleCheckboxCompany: (state, action: PayloadAction<number>) => {
             updateCompanyField(state, action.payload, (company) => {
-                const list = state.checkedList
+                const list = state.checkedList;
                 const check = company.checked;
                 if (!check) list.push(company);
                 else state.checkedList = list.filter(item => company.id !== item?.id);
@@ -36,12 +36,12 @@ const companySlice = createSlice({
             }));
             companiesAdapter.updateMany(state, updatedEntities);
         },
-        changeNameCompany: (state, action: PayloadAction<Omit<Company, 'address' | 'checked'>>) => {
+        changeNameCompany: (state, action: PayloadAction<{id: number, name: string}>) => {
             updateCompanyField(state, action.payload.id, (company) => {
                 company.name = action.payload.name;
             });
         },
-        changeAddressCompany: (state, action: PayloadAction<Omit<Company, 'name' | 'checked'>>) => {
+        changeAddressCompany: (state, action: PayloadAction<{id: number, address: string}>) => {
             updateCompanyField(state, action.payload.id, (company) => {
                 company.address = action.payload.address;
             });
@@ -55,6 +55,14 @@ const companySlice = createSlice({
                 });
                 state.checkedList = list.filter(Boolean);
             }
+        },
+        addCompany: (state, action: PayloadAction<{name: string, address: string}>) => {
+            companiesAdapter.addOne(state, {
+                id: Number(Date.now()),
+                name: action.payload.name,
+                address: action.payload.address,
+                checked: false
+            });
         },
     },
 });

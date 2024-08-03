@@ -1,17 +1,10 @@
 import {classNames} from 'shared/lib/classNames/classNames';
-import {AddCompanyForm} from 'features/AddCompany';
-import {CompaniesList} from 'widjets/CompaniesList';
+import {CompaniesPage} from 'pages/CompaniesPage';
 
-function App() {
-
-    return (
-        <div className={classNames('wrapper')}>
-            <main className="content-page">
-                <AddCompanyForm />
-                <CompaniesList />
-            </main>
-        </div>
-    );
-}
+const App = () => (
+    <div className={classNames('wrapper')}>
+        <CompaniesPage />
+    </div>
+);
 
 export default App;

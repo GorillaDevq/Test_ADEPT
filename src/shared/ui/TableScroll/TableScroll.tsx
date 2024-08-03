@@ -3,12 +3,11 @@ import {useInfiniteScroll} from 'shared/hooks/useInfiniteScroll/useInfiniteScrol
 import cls from './TableScroll.module.scss';
 
 interface TableScrollProps {
-    className?: string;
     children: ReactNode;
     onScrollEnd: () => void;
 }
 
-export const TableScroll = ({className, children, onScrollEnd}: TableScrollProps) => {
+export const TableScroll = ({children, onScrollEnd}: TableScrollProps) => {
     const wrapperRef = useRef() as MutableRefObject<HTMLDivElement>;
     const triggerRef = useRef() as MutableRefObject<HTMLDivElement>;
 
