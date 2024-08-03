@@ -10,11 +10,11 @@ export const AddCompanyForm = () => {
         <Form onSubmit={() => {}} className={cls.form}>
             <Fieldset>
                 <Label htmlFor='company'>Название компании</Label>
-                <Input theme={InputTheme.BORDER_BOTTOM} name='company'/>
+                <Input theme={InputTheme.BORDER_BOTTOM} id='company'/>
             </Fieldset>
             <Fieldset>
                 <Label htmlFor='address'>Адрес компании</Label>
-                <Input theme={InputTheme.BORDER_BOTTOM} name='address'/>
+                <Input theme={InputTheme.BORDER_BOTTOM} id='address'/>
             </Fieldset>
             <Button className={cls.form__submit} type='submit' theme={ButtonTheme.OUTLINE}>Добавить компанию</Button>
         </Form>

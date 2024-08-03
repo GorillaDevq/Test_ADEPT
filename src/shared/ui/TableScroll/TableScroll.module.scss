@@ -1,0 +1,12 @@
+.scroll {
+    overflow: auto;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+
+    &__end {
+        height: 0;
+        opacity: 0;
+        font-size: 1px;
+    }
+}

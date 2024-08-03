@@ -8,7 +8,9 @@ interface TbodyProps extends TableHTMLAttributes<HTMLTableSectionElement>{
 export const Thead = ({titles, renderTitle, ...other}: TbodyProps) => {
     return (
         <thead {...other}>
-            {titles.map(str => renderTitle(str))}
+            <tr>
+                {titles.map(str => renderTitle(str))}
+            </tr>
         </thead>
     );
 };

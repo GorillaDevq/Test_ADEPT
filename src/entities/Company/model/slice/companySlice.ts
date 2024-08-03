@@ -1,6 +1,5 @@
 import {createEntityAdapter, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CompanySchema} from 'entities/Company';
-import {TABLE_BODY} from 'shared/const/common';
 import {updateCompanyField} from '../../lib/updateCompanyField/updateCompanyField';
 
 export const companiesAdapter = createEntityAdapter<Company>({
@@ -10,22 +9,27 @@ export const companiesAdapter = createEntityAdapter<Company>({
 const companySlice = createSlice({
     name: 'company',
     initialState: companiesAdapter.getInitialState<CompanySchema>({
-        data: [],
+        checkedList: [],
         ids: [],
         entities: {},
     }),
     reducers: {
-        loadCompanies: (state) => {
-            companiesAdapter.setAll(state, TABLE_BODY);
+        loadCompanies: (state, action: PayloadAction<Company[]>) => {
+            companiesAdapter.setAll(state, action.payload);
         },
         toggleCheckboxCompany: (state, action: PayloadAction<number>) => {
             updateCompanyField(state, action.payload, (company) => {
+                const list = state.checkedList
+                const check = company.checked;
+                if (!check) list.push(company);
+                else state.checkedList = list.filter(item => company.id !== item?.id);
                 company.checked = !company.checked;
             });
         },
         toggleCheckboxAllCompanies: (state, action: PayloadAction<boolean>) => {
             const checked = action.payload;
-            console.log(checked);
+            if (checked) state.checkedList = Object.values(state.entities);
+            else state.checkedList = [];
             const updatedEntities = Object.values(state.entities).map((company) => ({
                 id: company!.id,
                 changes: { ...company, checked },
@@ -41,6 +45,16 @@ const companySlice = createSlice({
             updateCompanyField(state, action.payload.id, (company) => {
                 company.address = action.payload.address;
             });
+        },
+        deleteCheckedCompanies: (state) => {
+            const list = state.checkedList;
+            if (list.length) {
+                list.forEach((company, index) => {
+                    delete state.entities[company!.id];
+                    delete list[index];
+                });
+                state.checkedList = list.filter(Boolean);
+            }
         },
     },
 });

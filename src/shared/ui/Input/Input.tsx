@@ -41,7 +41,7 @@ export const Input = (props: InputProps) => {
     return (
         <input
             type={type}
-            className={classNames(cls.input, mods, [cls[theme]])}
+            className={classNames(cls.input, mods, [cls[theme], className])}
             value={value}
             onChange={onHandlerChange}
             {...otherProps}

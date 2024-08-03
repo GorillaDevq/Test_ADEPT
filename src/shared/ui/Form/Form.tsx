@@ -11,5 +11,5 @@ export const Form = ({children, className, ...other}: FormProps) => {
         <form className={classNames(cls.form, {}, [className])} {...other}>
             {children}
         </form>
-    )
-}
+    );
+};

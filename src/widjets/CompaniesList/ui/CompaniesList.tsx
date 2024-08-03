@@ -1,17 +1,17 @@
 import cls from './CompaniesList.module.scss';
-import {Input} from 'shared/ui/Input/Input';
-import {Button, ButtonTheme} from 'shared/ui/Button/Button';
 import {Label} from 'shared/ui/Label/Label';
 import {Table} from 'shared/ui/Table/Table';
-import {TABLE_HEAD} from 'shared/const/common';
+import {TABLE_BODY, TABLE_HEAD} from 'shared/const/common';
 import {Company, companyActions} from 'entities/Company';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useState} from 'react';
 import {useAppDispatch} from 'shared/hooks/useAppDispatch/useAppDispatch';
 import {Tbody} from 'shared/ui/Tbody/Tbody';
 import {useSelector} from 'react-redux';
 import {getCompanies} from 'entities/Company/model/selectors/companySelecors';
 import {Thead} from 'shared/ui/Thead/Thead';
 import {Checkbox} from 'shared/ui/Checkbox/Checkbox';
+import {TableScroll} from 'shared/ui/TableScroll/TableScroll';
+import {DeleteCompaniesButton} from 'features/DeleteCompanies';
 
 interface CompaniesList {
     className?: string;
@@ -19,17 +19,32 @@ interface CompaniesList {
 
 export const CompaniesList = (props: CompaniesList) => {
     const [checkboxAll, setCheckboxAll] = useState(false);
+    const [displayedCompanies, setDisplayedCompanies] = useState<Array<Company>>([]);
+    const [currentCount, setCurrentCount] = useState<number>(20);
     const dispatch = useAppDispatch();
     const companies = useSelector(getCompanies.selectAll);
+    const checkedCompanies =
 
     useEffect(() => {
-        dispatch(companyActions.loadCompanies());
+        dispatch(companyActions.loadCompanies(TABLE_BODY));
     }, []);
+
+    useEffect(() => {
+        setDisplayedCompanies(companies.slice(0, currentCount));
+    }, [companies, currentCount]);
 
     const onChangeAllCheckbox = useCallback((value: boolean) => {
         setCheckboxAll(prevValue => !prevValue);
         dispatch(companyActions.toggleCheckboxAllCompanies(value));
     }, [dispatch]);
+
+    const onLoadNextPart = useCallback(() => {
+        setCurrentCount(prevCount => prevCount + 20);
+    }, []);
+
+    const onDelete = useCallback(() => {
+        dispatch(companyActions.deleteCheckedCompanies());
+    }, []);
 
     return (
         <section className={cls.section}>
@@ -43,20 +58,20 @@ export const CompaniesList = (props: CompaniesList) => {
                     />
                     Выбрать все компании:
                 </Label>
-                <Button theme={ButtonTheme.OUTLINE_RED} >
-                    Удалить
-                </Button>
+                <DeleteCompaniesButton onDelete={onDelete}/>
             </div>
-            <Table>
-                <Thead
-                    titles={TABLE_HEAD}
-                    renderTitle={item => (<th key={item}> {item} </th>)}
-                />
-                <Tbody
-                    companies={companies}
-                    renderCompany={company => <Company company={company} key={company.id} />}
-                />
-            </Table>
+            <TableScroll onScrollEnd={onLoadNextPart}>
+                <Table>
+                    <Thead
+                        titles={TABLE_HEAD}
+                        renderTitle={item => (<th key={item}> {item} </th>)}
+                    />
+                    <Tbody
+                        companies={displayedCompanies}
+                        renderCompany={company => company ? <Company company={company} key={company.id} /> : null}
+                    />
+                </Table>
+            </TableScroll>
         </section>
     );
 };
