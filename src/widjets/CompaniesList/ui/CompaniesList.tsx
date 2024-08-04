@@ -22,7 +22,7 @@ export const CompaniesList = (props: CompaniesList) => {
     const [currentCount, setCurrentCount] = useState<number>(20);
     const dispatch = useAppDispatch();
     const companies = useSelector(getCompanies.selectAll);
-
+    console.log(displayedCompanies)
     useEffect(() => {
         dispatch(companyActions.loadCompanies(TABLE_BODY));
     }, []);
@@ -38,7 +38,7 @@ export const CompaniesList = (props: CompaniesList) => {
 
     const onLoadNextPart = useCallback(() => {
         setCurrentCount(prevCount => prevCount + 20);
-    }, []);
+    }, [companies]);
 
     const onDelete = useCallback(() => {
         dispatch(companyActions.deleteCheckedCompanies());

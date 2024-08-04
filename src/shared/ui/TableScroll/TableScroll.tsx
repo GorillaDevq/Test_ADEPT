@@ -20,7 +20,7 @@ export const TableScroll = ({children, onScrollEnd}: TableScrollProps) => {
     return (
         <div className={cls.scroll} ref={wrapperRef}>
             {children}
-            <div ref={triggerRef} className={cls.scroll__end}>T</div>
+            <div ref={triggerRef} className={cls.scroll__end}>Tsadsadas</div>
         </div>
     );
 };

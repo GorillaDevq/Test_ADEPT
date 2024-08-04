@@ -13,7 +13,6 @@ export const Form = ({children, className, callback, ...other}: FormProps) => {
     const onSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         callback();
-        form.current?.reset();
     }, [callback]);
 
     return (

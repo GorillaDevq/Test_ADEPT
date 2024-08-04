@@ -4,7 +4,7 @@ import { Input, InputTheme } from 'shared/ui/Input/Input';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Form } from 'shared/ui/Form/Form';
 import cls from './AddCompanyForm.module.scss';
-import {FormEvent, MutableRefObject, useCallback, useRef} from 'react';
+import { useCallback } from 'react';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';
 import { addCompanyActions } from '../../model/slice/addCompanySlice';
 import { useSelector } from 'react-redux';
@@ -24,9 +24,11 @@ export const AddCompanyForm = () => {
         dispatch(addCompanyActions.setAddress(value));
     }, [dispatch]);
 
-    const onHandlerSubmit = useCallback(() => {
+    const onHandlerSubmit = () => {
         dispatch(companyActions.addCompany({name, address}));
-    }, [dispatch, name, address]);
+        dispatch(addCompanyActions.setName(''));
+        dispatch(addCompanyActions.setAddress(''));
+    };
 
     return (
         <Form callback={onHandlerSubmit} className={cls.form}>

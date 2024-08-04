@@ -47,14 +47,9 @@ const companySlice = createSlice({
             });
         },
         deleteCheckedCompanies: (state) => {
-            const list = state.checkedList;
-            if (list.length) {
-                list.forEach((company, index) => {
-                    delete state.entities[company!.id];
-                    delete list[index];
-                });
-                state.checkedList = list.filter(Boolean);
-            }
+            const idsToDelete = state.checkedList.map((company) => company!.id);
+            companiesAdapter.removeMany(state, idsToDelete);
+            state.checkedList = [];
         },
         addCompany: (state, action: PayloadAction<{name: string, address: string}>) => {
             companiesAdapter.addOne(state, {
