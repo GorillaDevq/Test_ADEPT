@@ -1,7 +1,7 @@
-import {CompanySchema} from 'entities/Company';
-import {AddCompanySchema} from 'features/AddCompany';
+import type { CompanySchema } from "entities/Company";
+import type { AddCompanySchema } from "features/AddCompany";
 
 export interface StateSchema {
-    company: CompanySchema;
-    addCompany: AddCompanySchema;
-};
+	company: CompanySchema;
+	addCompany: AddCompanySchema;
+}

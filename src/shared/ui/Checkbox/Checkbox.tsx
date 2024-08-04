@@ -1,51 +1,37 @@
-import { classNames, Mods } from 'shared/lib/classNames/classNames';
-import {
-    ChangeEvent,
-    InputHTMLAttributes,
-} from 'react';
-import cls from './Checkbox.module.scss';
+import type { ChangeEvent, InputHTMLAttributes } from "react";
+import { type Mods, classNames } from "shared/lib/classNames/classNames";
+import cls from "./Checkbox.module.scss";
 
-export enum CheckboxTheme {
-    CLEAR = 'clear',
-    BORDER_BOTTOM = 'input_borderBottom',
-    BORDER = 'input_border'
+export enum CheckboxSize {
+	SMALL = "checkbox_small",
+	BIG = "checkbox_big",
 }
 
-type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' >
+type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "size">;
 
 interface CheckboxProps extends HTMLInputProps {
-    className?: string;
-    theme?: CheckboxTheme;
-    onChange?: (value: boolean) => void;
-    checked?: boolean;
+	className?: string;
+	size?: CheckboxSize;
+	onChange?: (value: boolean) => void;
+	checked?: boolean;
 }
 
 export const Checkbox = (props: CheckboxProps) => {
-    const {
-        className,
-        theme = CheckboxTheme.CLEAR,
-        type = 'checkbox',
-        onChange,
-        checked,
-        ...otherProps
-    } = props;
+	const { className, size = CheckboxSize.SMALL, type = "checkbox", onChange, checked, ...otherProps } = props;
 
-    const onHandlerChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        onChange?.(evt.target.checked);
-    };
+	const onHandlerChange = (evt: ChangeEvent<HTMLInputElement>) => {
+		onChange?.(evt.target.checked);
+	};
 
-    const mods: Mods = {
+	const mods: Mods = {};
 
-    };
-
-    return (
-        <input
-            type={type}
-            className={classNames(cls.input, mods, [cls[theme]])}
-            onChange={onHandlerChange}
-            checked={checked}
-            {...otherProps}
-        />
-    );
+	return (
+		<input
+			type={type}
+			className={classNames(cls.checkbox, mods, [cls[size]])}
+			onChange={onHandlerChange}
+			checked={checked}
+			{...otherProps}
+		/>
+	);
 };
-

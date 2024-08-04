@@ -1,18 +1,10 @@
-import { ReactNode, TableHTMLAttributes } from 'react';
-import cls from './Tbody.module.scss';
+import type { ReactNode, TableHTMLAttributes } from "react";
 
-interface TbodyProps extends TableHTMLAttributes<HTMLTableSectionElement>{
-    companies?: Array<Company>;
-    renderCompany: (company: Company) => ReactNode;
+interface TbodyProps extends TableHTMLAttributes<HTMLTableSectionElement> {
+	companies?: Array<Company>;
+	renderCompany: (company: Company) => ReactNode;
 }
 
-export const Tbody = ({companies, renderCompany, ...other}: TbodyProps) => {
-    return (
-        <tbody className={cls.table} {...other}>
-            {Boolean(companies)
-                ? companies?.map(company => renderCompany(company))
-                : 'Loading...'
-            }
-        </tbody>
-    );
-};
+export const Tbody = ({ companies, renderCompany, ...other }: TbodyProps) => (
+	<tbody {...other}>{Boolean(companies?.length) && companies?.map((company) => renderCompany(company))}</tbody>
+);
