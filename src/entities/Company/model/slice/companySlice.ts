@@ -60,7 +60,7 @@ const companySlice = createSlice({
         // Функция добавления компании
 		addCompany: (state, action: PayloadAction<{ name: string; address: string }>) => {
 			companiesAdapter.addOne(state, {
-				id: state.ids.length + 1,
+				id: Date.now(),
 				name: action.payload.name,
 				address: action.payload.address,
 				checked: false,
