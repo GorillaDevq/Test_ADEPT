@@ -1,5 +1,5 @@
 import type { ChangeEvent, InputHTMLAttributes } from "react";
-import { type Mods, classNames } from "shared/lib/classNames/classNames";
+import { classNames } from "shared/lib/classNames/classNames";
 import cls from "./Input.module.scss";
 
 export enum InputTheme {
@@ -24,12 +24,10 @@ export const Input = (props: InputProps) => {
 		onChange?.(evt.target.value);
 	};
 
-	const mods: Mods = {};
-
 	return (
 		<input
 			type={type}
-			className={classNames(cls.input, mods, [cls[theme], className])}
+			className={classNames(cls.input, {}, [cls[theme], className])}
 			value={value}
 			onChange={onHandlerChange}
 			{...otherProps}

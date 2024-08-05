@@ -1,5 +1,5 @@
 import type { ChangeEvent, InputHTMLAttributes } from "react";
-import { type Mods, classNames } from "shared/lib/classNames/classNames";
+import { classNames } from "shared/lib/classNames/classNames";
 import cls from "./Checkbox.module.scss";
 
 export enum CheckboxSize {
@@ -23,12 +23,10 @@ export const Checkbox = (props: CheckboxProps) => {
 		onChange?.(evt.target.checked);
 	};
 
-	const mods: Mods = {};
-
 	return (
 		<input
 			type={type}
-			className={classNames(cls.checkbox, mods, [cls[size]])}
+			className={classNames(cls.checkbox, {}, [cls[size]])}
 			onChange={onHandlerChange}
 			checked={checked}
 			{...otherProps}

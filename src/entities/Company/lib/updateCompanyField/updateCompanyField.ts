@@ -1,5 +1,5 @@
 import type { CompanySchema } from "../../model/types/companySchema";
-
+// Функция для обновления данных в мапе
 export const updateCompanyField = (
 	state: CompanySchema,
 	companyId: number,

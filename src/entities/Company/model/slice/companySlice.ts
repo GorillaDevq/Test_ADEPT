@@ -14,9 +14,11 @@ const companySlice = createSlice({
 		entities: {},
 	}),
 	reducers: {
+        // Загрузка компаний в стор
 		loadCompanies: (state, action: PayloadAction<Company[]>) => {
 			companiesAdapter.setAll(state, action.payload);
 		},
+        // Функция для смены чекбокса
 		toggleCheckboxCompany: (state, action: PayloadAction<number>) => {
 			updateCompanyField(state, action.payload, (company) => {
 				const list = state.checkedList;
@@ -26,6 +28,7 @@ const companySlice = createSlice({
 				company.checked = !company.checked;
 			});
 		},
+        // Функция для переключения всех чекбоксов
 		toggleCheckboxAllCompanies: (state, action: PayloadAction<boolean>) => {
 			const checked = action.payload;
 			if (checked) state.checkedList = Object.values(state.entities);
@@ -36,24 +39,28 @@ const companySlice = createSlice({
 			}));
 			companiesAdapter.updateMany(state, updatedEntities);
 		},
+        // Функция для изменения названия компании в таблице
 		changeNameCompany: (state, action: PayloadAction<{ id: number; name: string }>) => {
 			updateCompanyField(state, action.payload.id, (company) => {
 				company.name = action.payload.name;
 			});
 		},
+        // Функция для изменения адреса компании в таблице
 		changeAddressCompany: (state, action: PayloadAction<{ id: number; address: string }>) => {
 			updateCompanyField(state, action.payload.id, (company) => {
 				company.address = action.payload.address;
 			});
 		},
+        // Функция удаления выделенных компаний
 		deleteCheckedCompanies: (state) => {
 			const idsToDelete = state.checkedList.map((company) => company!.id);
 			companiesAdapter.removeMany(state, idsToDelete);
 			state.checkedList = [];
 		},
+        // Функция добавления компании
 		addCompany: (state, action: PayloadAction<{ name: string; address: string }>) => {
 			companiesAdapter.addOne(state, {
-				id: Number(Date.now()),
+				id: state.ids.length + 1,
 				name: action.payload.name,
 				address: action.payload.address,
 				checked: false,
